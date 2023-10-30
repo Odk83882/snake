@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviour
         instance = this;
     }
 
-    void Start()
+    void Update()
     {
         scoreText.text = score.ToString() + " POINTS";
         highscoreText.text = "HIGHSCORE :" + highscore.ToString();
@@ -31,6 +31,6 @@ public class ScoreManager : MonoBehaviour
     }
 
     public void resetScore() {
-        score = 0;
+       score = 0;
     }
 }

@@ -17,6 +17,7 @@ public class ScoreManager : MonoBehaviour
 
    public Text scoreText;
    public Text highscoreText;
+   public Text gameOverScore;
 
 
    int score = 0;
@@ -45,6 +46,7 @@ public class ScoreManager : MonoBehaviour
     public void AddPoint() {
         score += 1;
         scoreText.text = score.ToString() + " POINTS";
+        gameOverScore.text = score.ToString() + " POINTS";
         if (highscore < score)
             PlayerPrefs.SetInt("highscore", score);
     }

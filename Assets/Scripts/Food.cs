@@ -12,6 +12,10 @@ public class Food : MonoBehaviour
     
     [SerializeField] private ParticleSystem boom;
 
+
+    [SerializeField]
+    private LayerMask layerMask;
+
     private void Start()
     {
         RandomizePosition();
@@ -24,7 +28,17 @@ public class Food : MonoBehaviour
         float x = Random.Range(bounds.min.x, bounds.max.x);
         float y = Random.Range(bounds.min.y, bounds.max.y);
 
-        this.transform.position = new Vector3(Mathf.Round(x), Mathf.Round(y), 0.0f);
+        var newPos = new Vector3(Mathf.Round(x), Mathf.Round(y), 0.0f);
+
+        int safelock = 0;
+        while (Physics2D.OverlapCircle(newPos, 0.2f, layerMask) && safelock < 100)
+        {
+            safelock++;
+            newPos = new Vector3(Mathf.Round(x), Mathf.Round(y), 0.0f);
+        }
+
+        this.transform.position = newPos;
+
     }
     IEnumerator courutineA()
     {
@@ -44,6 +58,6 @@ public class Food : MonoBehaviour
         if (other.tag == "Player") {
               RandomizePosition();
         }
-      ScoreManager.instance.timeValue += 2;
+      ScoreManager.instance.timeValue += 3;
     }
 }
